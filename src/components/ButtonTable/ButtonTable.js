@@ -7,15 +7,18 @@ const ButtonTable = ({ ApiFetcher, fetchPerson }) => {
   //   const id = useId();
 
   const addList = () => {
-    setAddListToTable([
-      ...addListToTable,
-      {
-        Name: `${fetchPerson?.name?.title} ${fetchPerson?.name?.first} ${fetchPerson?.name?.last}`,
-        Email: `${fetchPerson?.email}`,
-        Phone: `${fetchPerson?.phone}`,
-        Age: `${fetchPerson?.dob?.age}`,
-      },
-    ]);
+    // eslint-disable-next-line no-unused-expressions
+    addListToTable.some((data) => data.email === fetchPerson.email)
+      ? null
+      : setAddListToTable([
+          ...addListToTable,
+          {
+            name: fetchPerson.fullname,
+            email: fetchPerson.email,
+            phone: fetchPerson.phone,
+            age: fetchPerson.age,
+          },
+        ]);
   };
 
   return (
@@ -49,10 +52,10 @@ const ButtonTable = ({ ApiFetcher, fetchPerson }) => {
           {addListToTable?.map((info, id) => {
             return (
               <tr key={id}>
-                <td>{info.Name}</td>
-                <td>{info.Email}</td>
-                <td>{info.Phone}</td>
-                <td>{info.Age}</td>
+                <td>{info.name}</td>
+                <td>{info.email}</td>
+                <td>{info.phone}</td>
+                <td>{info.age}</td>
               </tr>
             );
           })}
